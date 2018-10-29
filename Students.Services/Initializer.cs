@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-[assembly:  WebActivatorEx.PreApplicationStartMethod(typeof(Students.Services.Initializer), "Initialize")]
+[assembly:  WebActivatorEx.PostApplicationStartMethod(typeof(Students.Services.Initializer), "Initialize")]
 
 namespace Students.Services
 {

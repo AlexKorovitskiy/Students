@@ -10,7 +10,10 @@ namespace Students.Repository.Repository
     public class StudentsJsonRepository : IStudentRepository
     {
         private JavaScriptSerializer _jsonSerializer;
-        private readonly string _pathToStudentsJsonFile = @"d:\students.json";
+        private readonly string _pathToStudentsJsonFile = 
+            System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
+                "students.json");
+
         public StudentsJsonRepository()
         {
             _jsonSerializer = new JavaScriptSerializer();
