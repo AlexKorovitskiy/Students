@@ -4,57 +4,46 @@ using System.Text;
 using System.Web.Script.Serialization;
 using Students.ServicesModel;
 using System.Linq;
-using Students.Repository.Repository;
+using Students.RepositoryModel;
 
 namespace Students.Services.Services
 {
-    public class StudentsService : IStudentsService
+    public class StudentsService : AbstractService<StudentInfo, Student>//IStudentsService
     {
-        IStudentRepository _studentRepository;
+        //private IEntityRepository<Student> _studentRepository = new EntityFrameworkRepository.StudentRepository();
         public StudentsService()
+            : base(new EntityFrameworkRepository.StudentRepository())
         {
-            _studentRepository = new StudentsJsonRepository();
-        }
 
-        public void Create(Student student)
+        }
+        /*
+        public void Create(StudentInfo student)
         {
-            ValidateStudent(student);
-            var dbStudentModel = AutoMapper.Mapper.Map<Student,RepositoryModel.Student>(student);
+            var dbStudentModel = AutoMapper.Mapper.Map<StudentInfo, RepositoryModel.Student>(student);
             _studentRepository.Create(dbStudentModel);
         }
 
-        public IEnumerable<Student> GetStudents()
+        public IEnumerable<StudentInfo> GetStudents()
         {
-            var repositoryResponse =_studentRepository.GetStudents();
-            return AutoMapper.Mapper.Map<IEnumerable<RepositoryModel.Student>, IEnumerable<Student>>(repositoryResponse);
+            var repositoryResponse = _studentRepository.GetModelCollections();
+            return AutoMapper.Mapper.Map<IEnumerable<RepositoryModel.Student>, IEnumerable<StudentInfo>>(repositoryResponse);
         }
 
-        public Student GetStudentById(int id)
+        public StudentInfo GetStudentById(int id)
         {
-            var dbStudentModel =_studentRepository.GetStudentById(id);
-            return AutoMapper.Mapper.Map<RepositoryModel.Student, Student>(dbStudentModel);
+            var dbStudentModel = _studentRepository.GetModelById(id);
+            return AutoMapper.Mapper.Map<RepositoryModel.Student, StudentInfo>(dbStudentModel);
         }
 
-        public void Update(Student student)
+        public void Update(StudentInfo student)
         {
-            ValidateStudent(student);
-            var dbStudentModel = AutoMapper.Mapper.Map<Student, RepositoryModel.Student>(student);
+            var dbStudentModel = AutoMapper.Mapper.Map<StudentInfo, RepositoryModel.Student>(student);
             _studentRepository.Update(dbStudentModel);
         }
 
         public void Delete(int id)
         {
             _studentRepository.Delete(id);
-        }
-
-        #region private methods
-
-        private void ValidateStudent(Student student)
-        {
-            if (student.Course > 5 || student.Course < 1)
-                throw new IndexOutOfRangeException("Courses value out of range");
-        }
-
-        #endregion
+        }*/
     }
 }

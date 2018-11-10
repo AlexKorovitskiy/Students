@@ -11,7 +11,8 @@ namespace StudentsAutomationProject
     {
         protected void Application_Start()
         {
-            App_Start.Initializer.Initialize();
+            Initializer.Initializer.Initialize();
+            //App_Start.Initializer.Initialize();
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }

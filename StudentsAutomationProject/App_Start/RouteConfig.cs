@@ -16,7 +16,7 @@ namespace StudentsAutomationProject
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Students", action = "Students", id = UrlParameter.Optional }
+                defaults: new { controller = "Authorization", action = "Login", id = UrlParameter.Optional }
             );
         }
     }

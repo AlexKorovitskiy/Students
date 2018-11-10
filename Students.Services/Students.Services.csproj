@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Students.Repository\Students.Repository.csproj" />
+    <ProjectReference Include="..\Students.EntityFrameworkRepository\Students.EntityFrameworkRepository.csproj" />
     <ProjectReference Include="..\Students.ServicesModel\Students.ServicesModel.csproj" />
   </ItemGroup>
 

@@ -4,10 +4,12 @@ using System.Text;
 
 namespace Students.RepositoryModel
 {
-    public class Student
+    public class Student : IEntity
     {
-        public int? Id { get; set; }
-        public string Name { get; set; }
-        public int Course { get; set; }
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

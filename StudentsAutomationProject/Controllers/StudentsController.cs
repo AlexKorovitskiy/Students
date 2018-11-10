@@ -1,5 +1,5 @@
-﻿using Students.Services.Services;
-using StudentsAutomationProject.Models;
+﻿using PresentationModel;
+using Students.ServicesModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,18 +12,19 @@ namespace StudentsAutomationProject.Controllers
 {
     public class StudentsController : Controller
     {
-        IStudentsService _studentsService;
+        IInfoModelService<StudentInfo> studentsService = new Students.Services.Services.StudentsService();
         public StudentsController()
         {
-            _studentsService = new StudentsService();
+
         }
 
         // GET: Stusents
         [HttpGet]
         public ActionResult Students()
         {
-            var students = _studentsService.GetStudents();
-            var studentsView = AutoMapper.Mapper.Map<IEnumerable<Students.ServicesModel.Student>, IEnumerable<StudentViewModel>>(students);
+            var students = studentsService.GetModelCollections();
+            var studentsView = AutoMapper.Mapper.Map<IEnumerable<Students.ServicesModel.StudentInfo>
+                , IEnumerable<StudentViewModel>>(students);
             return View(studentsView);
         }
 
@@ -36,37 +37,37 @@ namespace StudentsAutomationProject.Controllers
         [HttpPost]
         public ActionResult Create(StudentViewModel student)
         {
-            var studentServiceModel = AutoMapper.Mapper.Map<StudentViewModel, Students.ServicesModel.Student>(student);
-            _studentsService.Create(studentServiceModel);
+            var studentServiceModel = AutoMapper.Mapper.Map<StudentViewModel, Students.ServicesModel.StudentInfo>(student);
+            studentsService.Create(studentServiceModel);
             return RedirectToAction("Students"); //new HttpStatusCodeResult(HttpStatusCode.Created);
         }
 
         [HttpGet]
         public ActionResult Update(int id)
         {
-            var serviceModel = _studentsService.GetStudentById(id);
-            return View(AutoMapper.Mapper.Map<Students.ServicesModel.Student, StudentViewModel>(serviceModel));
+            var serviceModel = studentsService.GetModelById(id);
+            return View(AutoMapper.Mapper.Map<Students.ServicesModel.StudentInfo, StudentViewModel>(serviceModel));
         }
 
         [HttpPost]
         public ActionResult Update(StudentViewModel student)
         {
-            var serviceModel = AutoMapper.Mapper.Map<StudentViewModel, Students.ServicesModel.Student>(student);
-            _studentsService.Update(serviceModel);
+            var serviceModel = AutoMapper.Mapper.Map<StudentViewModel, Students.ServicesModel.StudentInfo>(student);
+            studentsService.Update(serviceModel);
             return RedirectToAction("Students");
         }
 
         [HttpGet]
         public ActionResult Show(int id)
         {
-            var student = _studentsService.GetStudentById(id);
-            return View(AutoMapper.Mapper.Map<Students.ServicesModel.Student, StudentViewModel>(student));
+            var student = studentsService.GetModelById(id);
+            return View(AutoMapper.Mapper.Map<Students.ServicesModel.StudentInfo, StudentViewModel>(student));
         }
 
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            _studentsService.Delete(id);
+            studentsService.Delete(id);
             return RedirectToAction("Students");
         }
     }
